@@ -3,9 +3,10 @@ Type: Package
 Title: Shapley Value Regression using AIC
 Version: 0.1.0
 Author: Katherine R Pulham
+Imports: stats
 Maintainer: Katherine R Pulham <krp65@cornell.edu>
 Description: shapley() calculates the shapley values of the explanatory
-    variables of a MLR model using AIC, which accounts for model complexity
-License: CC0 1.0 Universal
+    variables of a MLR model using AIC, which accounts for model complexity.
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true

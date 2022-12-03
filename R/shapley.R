@@ -2,9 +2,9 @@
 #shapley value for each column of the design matrix using either AIC or R^2.
 
 #Test data
-X <- cbind(rnorm(100),runif(100,1,5),1-rexp(100),rnorm(100))
-colnames(X)<-c("X1","X2","X3","X4")
-Y <- 1 + X%*%cbind(c(1,1/2,-1,0)) + rnorm(100)
+#X <- cbind(rnorm(100),runif(100,1,5),1-rexp(100),rnorm(100))
+#colnames(X)<-c("X1","X2","X3","X4")
+#Y <- 1 + X%*%cbind(c(1,1/2,-1,0)) + rnorm(100)
 
 shapley <- function(Y,X){
   #First, we need to calculate AIC for all possible models. We set up a logical
@@ -31,12 +31,12 @@ shapley <- function(Y,X){
     #subtab is constructed so the first row will always be the empty model. So
     #we use an intercept only model in this case:
     if(i==1){
-      lmod <- lm(Y~1)
+      lmod <- stats::lm(Y~1)
     }
     else{ #otherwise use subtab for design matrix subsetting
       lmod <- lm(Y ~ X[,subtab[i,]] )
     }
-    aicvals[i]  <- AIC(lmod)
+    aicvals[i]  <- stats::AIC(lmod)
     rsqrvals[i] <- summary(lmod)$r.squared
   }
   #add this to subtab:

@@ -1,12 +1,27 @@
-#This function takes in a response vector, a design matrix, and calculates the
-#shapley value for each column of the design matrix using either AIC or R^2.
-
 #Test data
 #X <- cbind(rnorm(100),runif(100,1,5),1-rexp(100),rnorm(100))
 #colnames(X)<-c("X1","X2","X3","X4")
 #Y <- 1 + X%*%cbind(c(1,1/2,-1,0)) + rnorm(100)
 
+#This function takes in a response vector, a design matrix, and calculates the
+#shapley value for each column of the design matrix using either AIC or R^2.
+#' Computes Shapley values for the explanatory variables in a Multiple Linear Regression model, using the coefficient of determination, R^2 and AIC to score coalitions.
+#'
+#' @param Y The response vector
+#' @param X The design matrix of the linear regression. Should not include factor variables; convert to indicator variables first.
+#' @examples
+#' Y <- swiss[,6]
+#' X <- as.matrix(swiss[,1:5])
+#' shapley(Y,X)
+#' @export
 shapley <- function(Y,X){
+#' @import stats
+#' @importFrom Matrix rankMatrix
+  #Error messages
+  if(!is.matrix(X)){stop("invalid X; X must be the design matrix. Please provide a matrix with the columns named.")}
+  if(!Matrix::rankMatrix(X)==ncol(X)){stop("X is not full column rank.")}
+  if(!length(Y)==nrow(X)){stop("Y and X have differing numbers of rows.")}
+
   #First, we need to calculate AIC for all possible models. We set up a logical
   #matrix which indicates inclusion (TRUE or FALSE) of each variable for all 2^p
   #possible coalitions. Since this is equivalent to counting from 0 to (2^p)-1
@@ -48,7 +63,7 @@ shapley <- function(Y,X){
   #transformation of aic.
   subtab[,p+1] <- aicvals[1]-aicvals
 
-  #initialize an array for the shapley values
+  #initialize a matrix for the shapley values
   shapvals <- matrix(data=NA,nrow=p,ncol=2)
   colnames(shapvals)<-c("AIC","Rsq")
   rownames(shapvals)<-colnames(X)
@@ -101,3 +116,11 @@ shapley <- function(Y,X){
   shap_out$subset_table$aicvals <- aicvals
   return(shap_out)
 }
+
+
+
+
+
+
+
+

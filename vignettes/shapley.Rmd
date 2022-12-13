@@ -1,5 +1,5 @@
  ---
-title: "shapley_AIC_vs_Rsquared"
+title: "shapley"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{shapley_AIC_vs_Rsquared}

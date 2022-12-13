@@ -1,0 +1,53 @@
+---
+title: "shapley"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{shapley}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(shapleyAIC)
+```
+
+## Core function 
+
+`shapleyAIC` has one core function: `shapley()`. This function takes as its arguments
+
+* `Y`, a vector of response values to be modeled. 
+* `X`, a design matrix for the linear regression setup to be analyzed. 
+
+For `X`, you must convert factor variables into their appropriate indicator variable forms. 
+
+## Example
+
+The `swiss` data set has data concerning fertility rates for 47 countries. The first column in the data set is a "common standardized fertility measure." Suppose we want to see how much the other 5 variables help to explain this response variable. The `shapley()` function can be used to do this:
+
+```{r}
+Y <- swiss[,1]
+X <- as.matrix(swiss[,2:6])
+
+shaps <- shapley(Y,X)
+
+shaps$AIC_shapleys
+shaps$rsq_shapleys
+```
+
+These two vectors give us weights of *how valuable* each variable is in terms of explaining the fertility measure. The fact that all five variables have positive AIC Shapley values implies that all of them are useful to some extent, whereas it is unclear from the $R^2$ Shapley values whether or not `Agriculture`'s shapley value of 0.06 is "big enough to matter." More theoretical research needs to be done to verify this, but the way they're constructed, AIC Shapley values should have positive values when the variable is "useful" in terms of minimizing quadratic estimation loss. 
+
+Observe that we must coerce `swiss[,2:6]` into a matrix before passing it to the `shapley()` function. If we do not, we get an error message:
+
+```{r error=TRUE}
+Y <- swiss[,1]
+X <- swiss[,2:6]
+
+shaps <- shapley(Y,X)
+```

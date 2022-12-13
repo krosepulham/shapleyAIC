@@ -1,8 +1,8 @@
 ---
-title: "shapley"
+title: "shapleyAIC"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{shapley}
+  %\VignetteIndexEntry{shapleyAIC}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

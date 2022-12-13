@@ -7,9 +7,10 @@ If you have not already, download the devtools package:
 ```
 install.packages("devtools")
 ```
+
 Then, download the package using the `install_github()` function in the devtools package:
 ```
-devtools::install_github("https://github.com/krosepulham/shapleyAIC")
+devtools::install_github("https://github.com/krosepulham/shapleyAIC",build_vignettes = TRUE,force=TRUE)
 ```
 
 # Load and view vignette
@@ -17,5 +18,5 @@ devtools::install_github("https://github.com/krosepulham/shapleyAIC")
 You can load the package and view the vignette with the following:
 ```
 library(shapleyAIC)
-vignette("shapley")
+vignette("shapleyAIC")
 ```

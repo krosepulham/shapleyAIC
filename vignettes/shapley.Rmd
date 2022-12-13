@@ -1,8 +1,8 @@
- ---
+---
 title: "shapley"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{shapley_AIC_vs_Rsquared}
+  %\VignetteIndexEntry{shapley}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -10,15 +10,12 @@ vignette: >
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment  = "#>"
+  comment = "#>"
 )
 ```
 
 ```{r setup}
 library(shapleyAIC)
-library(dplyr)
-library(ggplot2)
-library(tidyr)
 ```
 
 ## Core function 
@@ -54,4 +51,3 @@ X <- swiss[,2:6]
 
 shaps <- shapley(Y,X)
 ```
-

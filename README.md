@@ -11,3 +11,11 @@ Then, download the package using the `install_github()` function in the devtools
 ```
 devtools::install_github("https://github.com/krosepulham/shapleyAIC")
 ```
+
+# Load and view vignette
+
+You can load the package and view the vignette with the following:
+```
+library(shapleyAIC)
+vignette("shapley")
+```
